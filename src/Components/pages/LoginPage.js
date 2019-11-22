@@ -1,28 +1,22 @@
 import React from 'react';
+import LoginForm from '../forms/LoginForm';
 
-function LoginPage() {
-    return (
+class LoginPage extends React.Component {
+    submit = data =>
+      console.log(data);
+  
+    render() {
+      return (
         <div>
-            <h1>Login Here!</h1>
-        
-            <label for="email">Email</label>
-            <input 
-                type="email" 
-                id="email"
-                name="email"
-                pattern=".+@globex.com"  
-                placeholder="Enter your emailid" required />
-
-            <br/>
-            <label htmlFor="password">Password</label>
-            <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                placeholder="Enter your password" required />
-
-                <button >Login</button>
+          <h1>Login page</h1>
+  
+          <LoginForm submit={this.submit} />
+  
+          
         </div>
-    )
-}
+      );
+    }
+  }
+  
+  
 export default LoginPage;
