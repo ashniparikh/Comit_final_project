@@ -35,6 +35,7 @@ class SignUpForm extends Component {
         if (!data.name) errors.name = "Can't be empty";
         if (!Validator.isEmail(data.email)) errors.email = "Invalid email";
         if (!data.password) errors.password = "Can't be empty";
+        if (!data.confirmpassword) errors.confirmpassword = "Can't be empty";
         if(data.password!==data.confirmpassword)errors.confirmpassword =" Passwords didn't match. Try again.";
         return errors;
       };
@@ -78,6 +79,8 @@ class SignUpForm extends Component {
                 className="FormField__Input" 
                 placeholder="Enter your password" 
                 name="password" 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
                 value={data.password}
                 onChange={this.onChange}
                  />
@@ -91,6 +94,8 @@ class SignUpForm extends Component {
                 className="FormField__Input" 
                 placeholder="Confirm Password" 
                 name="confirmpassword" 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                 value={data.cofirmpassword} 
                 onChange={this.onChange}
                  />

@@ -28,3 +28,7 @@ nav a:hover {
 .nav-left a:hover {
     text-decoration: none;
 }
+
+.FormField__Link_button {
+    color: black;
+}
