@@ -43,7 +43,7 @@ function LoginForm(props){
     return(
         <Form onSubmit={handleSubmit}>
             <Form.Field error={!!errors.name}>
-                <label className="FormField__Label" htmlFor="name">User Name</label>
+                <label className="FormField__Label" htmlFor="name">Username</label>
                 <input 
                 type="text" 
                 id="name" 
@@ -84,7 +84,8 @@ function LoginForm(props){
                 />
                 {errors.password && <InlineError text={errors.password}/>}
             </Form.Field>
-            <Button onClick={goToHome} disabled={!validateForm()}>Login</Button>           
+            <Button onClick={goToHome} disabled={!validateForm()}>Login</Button>  
+                   
             <Link to="/forgotPassword" className="FormField__Link">Forgot Password?</Link>/
             <Link to="/forgotEmail" className="FormField__Link">Forgot Email?</Link>
             <Form.Field>

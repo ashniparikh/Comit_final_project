@@ -1,34 +1,126 @@
-* {
-    font-family: sans-serif;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-}
-
-nav a {
-    color: #333;
-    text-decoration: none;
-    margin-right: 15px;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-.nav-left a:hover {
-    text-decoration: none;
-}
-
-.FormField__Link_button {
-    color: black;
-}
+    * {
+        font-family: sans-serif;
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .nav-right {
+        display: flex;
+        align-items: center;
+    }
+    
+    nav a {
+        color: #333;
+        text-decoration: none;
+        margin-right: 15px;
+    }
+    
+    nav a:hover {
+        text-decoration: underline;
+    }
+    
+    .nav-left a:hover {
+        text-decoration: none;
+    }
+    
+    .FormField__Link_button {
+        color: black;
+    }
+    
+    .active {
+        background-color: white;
+    }
+    
+    .nav-left a {
+        float: left;
+        width: 20%;
+        text-align: center;
+        padding: 12px 0;
+        transition: all 0.3s ease;
+        color: rgb(19, 18, 18);
+        font-size: 36px;
+    }
+    
+    .welcome {
+        justify-content: center;
+    }
+    
+    #mySidenav>a {
+        text-align: center;
+        position: absolute;
+        left: -10px;
+        float: center;
+        transition: 0.2s;
+        padding: 15px;
+        width: 100px;
+        text-decoration: none;
+        font-size: 15px;
+        color: white;
+        border-radius: 0 5px 5px 0;
+    }
+    
+    #mySidenav a:hover {
+        left: 0;
+    }
+    
+    #new_customer {
+        top: 180px;
+        background-color: #4CAF50;
+    }
+    
+    #add_user {
+        top: 247px;
+        background-color: #2196F3;
+    }
+    
+    #user_profile {
+        top: 315px;
+        background-color: #555
+    }
+    
+    .search-container {
+        text-align: center;
+        font-size: 17px;
+        cursor: pointer;
+        float: center;
+    }
+    
+    .search-container button:hover {
+        background: #0b7dda;
+    }
+    
+    .search-name {
+        margin-inline-start: 38%;
+        padding: 20px;
+        display: inline-table;
+        justify-content: center;
+    }
+    
+    #myUL {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        width: 300px;
+    }
+    
+    #myUL li a {
+        border: 1px solid #ddd;
+        margin-top: -1px;
+        /* Prevent double borders */
+        background-color: #f6f6f6;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block;
+    }
+    
+    #myUL li a:hover:not(.header) {
+        background-color: #eee;
+    }
