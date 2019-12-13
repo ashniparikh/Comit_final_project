@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { Form, Button } from 'semantic-ui-react';
+import {  Button } from 'semantic-ui-react';
 import {Link} from 'react-router-dom'; 
 import {useHistory} from 'react-router-dom';
-import InlineError from '../messages/InlineError';
+import userLogo from './../../user.png';
+import backgroundImg from './../../background.jpg';
 
 
 
 function LoginForm(props){
     let [email ,setEmail] = React.useState('');
     let [password ,setPassword] = React.useState('');
+    let [isInvalid, setIsInvalid] = React.useState(false);
+    
     let errors = {};
     
     let history=useHistory();
 
-    function goToHome(){
-        history.push('/dashboardpage');
-    }
+    
 
     function handleUsernameChange(event){
         props.setUsername(event.target.value);
@@ -31,18 +32,46 @@ function LoginForm(props){
     };
 
     
-    function validateForm() {
-    return props.username.length > 0 && email.length > 0 && password.length > 0;
-    };
+    
+    
+    function handleLogin(event) {
+        event.preventDefault();
 
-    function handleSubmit(event) {
-    event.preventDefault();
-    };
-        
+        if (props.username==='Ash' && email === 'ash@gmail.com' && password === '1234@Asp') {
+            
+            // take them dashboard
+            history.push('/dashboardpage');
+        } else if (props.username==='Ashni' && email === 'ashni@gmail.com' && password === '1234@Ashni') {
+            
+            // take them dashboard
+            history.push('/dashboardpage');
+        }   
+        else {
+            // show an error
+            setIsInvalid(true);
+        };
+    
+    }   
+
     
     return(
-        <Form onSubmit={handleSubmit}>
-            <Form.Field error={!!errors.name}>
+
+    
+    <div className="loginpage"> 
+    <img src={backgroundImg} />   
+    <div className="loginBox">
+        <img src={userLogo} className="user"/>
+        
+        <h2>Login here</h2>
+        
+            
+            {isInvalid && (
+                <p style={{color: 'black'}}>
+                   <b> Incorrect credentials or Empty fields</b>
+                </p>
+            )}
+        <form onSubmit={handleLogin}>
+            
                 <label className="FormField__Label" htmlFor="name">Username</label>
                 <input 
                 type="text" 
@@ -53,46 +82,42 @@ function LoginForm(props){
                 value={props.username} 
                 onChange={handleUsernameChange}
                 />
-                {errors.name && <InlineError text={errors.name}/>}
-            </Form.Field>
-            <Form.Field error={!!errors.email}>
-                <label htmlFor="email">Email</label>
+                
+                <label htmlFor="email" className="FormField__Label">Email</label>
                 <input 
                     type="email" 
                     id="email" 
                     name="email" 
                     placeholder="exaples@example.com" 
-                    pattern="exaples@example.com"
+                    className="FormField__Input" 
                     value={email}
                     onChange={handleEmailChange}
                 />
-                {errors.email && <InlineError text={errors.email}/>}
-            </Form.Field>
-
-            <Form.Field error={!!errors.password}>
-                <label htmlFor="password">Password</label>
+                
+                <label htmlFor="password" className="FormField__Label">Password</label>
                 <input  
                     type="password" 
                     id="password" 
                     name="password" 
+                    className="FormField__Input" 
                     placeholder="Enter your password" 
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                     value={password}
                     onChange={handlePasswordChange}
  
                 />
-                {errors.password && <InlineError text={errors.password}/>}
-            </Form.Field>
-            <Button onClick={goToHome} disabled={!validateForm()}>Login</Button>  
+                
+                <input type="submit" name = "" value="LogIn"/> 
                    
-            <Link to="/forgotPassword" className="FormField__Link">Forgot Password?</Link>/
-            <Link to="/forgotEmail" className="FormField__Link">Forgot Email?</Link>
-            <Form.Field>
-            <Link to="/signup" className="FormField__Link">Create an account</Link>
-            </Form.Field>
+            
+            
+            <Link to="/signup" style={{justifyContent:"center"}} className="FormField__Link">Create an account</Link>
+            
 
-        </Form>
+        </form>
+        </div>
+        </div>
     );
     
 }

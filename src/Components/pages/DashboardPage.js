@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './../../Nav';
 
@@ -7,15 +7,41 @@ import Nav from './../../Nav';
 
 function DashboardPage(props) {
     
+    let[custName,setCustName]=React.useState([]);
+    let[hasError, setErrors] = React.useState(false);
 
     function handleSearchChange(event){
         props.setSearch(event.target.value);
     };
     
-    const filteredNames = props.Cust_Names.filter( Cust_Name =>{
-        return Cust_Name.name.toLowerCase().indexOf( props.search.toLowerCase() ) !== -1
-    })
+    useEffect(() => {
+        const abortController = new AbortController();
+        async function fetchData(){
+            const res = await fetch('http://localhost:4000/backend_db/', { signal: abortController.signal});
+            res
+                .json()
+                .then(res =>setCustName(res))
+                .catch(err => setErrors(err));
+            
+    }
+    fetchData();
+    return () => {
+        abortController.abort();
+      };
+  },[]);
 
+  
+
+    const filteredNames = custName.filter( function(Cust_Name){
+        if (Cust_Name.fullname.toLowerCase().includes(props.search.toLowerCase())) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+    
+
+    
     return (
         <div className="dashboard-container">
             <header>
@@ -28,7 +54,7 @@ function DashboardPage(props) {
                 <div className="search-container" id="search">
                     <input 
                         type="text" 
-                        placeholder="Search.." 
+                        placeholder="Search Customer" 
                         name="search2" 
                         onChange={handleSearchChange}
                         value={props.search}
@@ -38,9 +64,9 @@ function DashboardPage(props) {
                 <div className="search-name">
                 {filteredNames.map(function(Cust_Name) {
                     return (
-                        <div className="search" key={props.Cust_Names.id}>
+                        <div className="search">
                             <ul id="myUL">
-                                <li><a href="#">{Cust_Name.name}</a></li>
+                                <li><Link to ={"/editcust/"+Cust_Name._id}id="current_customer">{Cust_Name.fullname}</Link></li>
                             </ul>
                         </div>
                     )

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import Validator from 'validator'; 
-import { Form, Button } from 'semantic-ui-react';
 import InlineError from '../messages/InlineError';
+import userLogo from './../../user.png';
+import backgroundImg from './../../background.jpg';
+
 
 
 
@@ -13,7 +15,8 @@ class SignUpForm extends Component {
             name:'',
             email:'',
             password:'',
-            confirmpassword:''
+            confirmpassword:'',
+            
         },
         loading:false,
         errors:{}
@@ -30,6 +33,8 @@ class SignUpForm extends Component {
         
     };  
 
+    
+
     validate = data => {
         const errors = {};
         if (!data.name) errors.name = "Can't be empty";
@@ -42,10 +47,19 @@ class SignUpForm extends Component {
 
     render(){
         const {data,errors}=this.state;
-        return (
+
         
-            <Form onSubmit={this.onSubmit} className="FormFields">
-              <Form.Field error={!!errors.name}>
+        return (
+
+          <div className="loginpage"> 
+            <img src={backgroundImg} />   
+            <div className="loginBox">
+            <img src={userLogo} className="user"/>
+        
+            <h2>Sign Up</h2>
+        
+            <form onSubmit={this.onSubmit}>
+              
                 <label className="FormField__Label" htmlFor="name">User Name</label>
                 <input 
                 type="text" 
@@ -57,8 +71,8 @@ class SignUpForm extends Component {
                 onChange={this.onChange}
                  />
                  {errors.name && <InlineError text={errors.name}/>}
-              </Form.Field>
-              <Form.Field error={!!errors.email}>
+              
+              
                 <label className="FormField__Label" htmlFor="email">Email</label>
                 <input 
                 type="email" 
@@ -70,8 +84,8 @@ class SignUpForm extends Component {
                 onChange={this.onChange}
                 />
                 {errors.email && <InlineError text={errors.email}/>}
-              </Form.Field>
-              <Form.Field error={!!errors.password}>
+              
+              
                 <label className="FormField__Label" htmlFor="password">Password</label>
                 <input 
                 type="password" 
@@ -85,8 +99,8 @@ class SignUpForm extends Component {
                 onChange={this.onChange}
                  />
                  {errors.password && <InlineError text={errors.password}/>}
-              </Form.Field>
-              <Form.Field error={!!errors.confirmpassword}>
+              
+              
                 <label className="FormField__Label" htmlFor="confirmpassword">Confirm Password</label>
                 <input 
                 type="password" 
@@ -100,17 +114,17 @@ class SignUpForm extends Component {
                 onChange={this.onChange}
                  />
                  {errors.confirmpassword && <InlineError text={errors.confirmpassword}/>}
-              </Form.Field>
+              
               
 
               
-
-              <Form.Field>
-                  <Button className="FormField__Button mr-20">Sign Up</Button> 
-                  <Link to="/login" className="FormField__Link">I'm already member</Link>
-              </Form.Field>
-            </Form>
-          
+                  <input type="submit" name = "Sign Up" value="Sign Up"/>
+                   
+                  <Link to="/login" className="FormField__Link1" style={{justifyContent:"center"}}>I'm already member</Link>
+              
+            </form>
+          </div>
+          </div>
         );
     }
 }
