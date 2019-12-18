@@ -1,10 +1,16 @@
 import React,{useEffect } from 'react';
 import Nav from './../../Nav';
+import Sidebar from './../../Sidebar';
 import ButtonS from './../../ButtonS';
-import { Form, Button } from 'semantic-ui-react';
 import {Link} from 'react-router-dom'; 
 import {useHistory} from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import moment from 'moment';
+
+
 
 
 function Edit_CustPage(props) {
@@ -16,6 +22,8 @@ function Edit_CustPage(props) {
     let [gender, setGender] = React.useState('');
     let [counter, setCounter] = React.useState(0);
     let[hasError, setErrors] = React.useState(false);
+    let [rewardCounter,setRewardCounter]=React.useState(0);
+    
     let history=useHistory();
 
 
@@ -69,6 +77,11 @@ function Edit_CustPage(props) {
         setCounter(0);
       }
 
+      function handleRewardChange(e){
+            e.preventDefault();
+            setCounter( Math.trunc(counter-10));
+
+      }
       function onSubmit(e){
         e.preventDefault();
         const obj = {
@@ -90,14 +103,15 @@ function Edit_CustPage(props) {
         <div>
             <header>
                 <Nav/>
+                <Sidebar/>
             </header>
             <main>
-                <div>
-                    <h1>Current Member</h1>
-                </div>
+                <div className="newCustbox">
+                    <h3>Current Member</h3>
+                
 
-                <Form onSubmit={onSubmit}>
-                    <Form.Field >
+                <form onSubmit={onSubmit}>
+                    
                         <label className="labelfirstname" htmlFor="name">Fullname</label>
                         <input 
                         type="text" 
@@ -110,9 +124,7 @@ function Edit_CustPage(props) {
                         
                         />
                         
-                    </Form.Field>
                     
-                    <Form.Field >
                         <label htmlFor="email">Email</label>
                         <input 
                             type="email" 
@@ -124,87 +136,90 @@ function Edit_CustPage(props) {
                             
                             
                         />
-                        
-                    </Form.Field>
-                    <Form.Field >
+                    
                         <label htmlFor="contact">Contact</label>
                         <input 
                             type="tel" 
                             id="contact" 
                             name="contact" 
-                            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                             placeholder="Enter Contact number" 
                             value={contact}
                             onChange={handleContact}
                             
                         />
-                        
-                    </Form.Field>
-                    <Form.Field >
+                    
                         <label htmlFor="date">Date of Birth</label>
-                        <input 
-                        type="date" 
-                        name="date"
-                        dateFormat="yyyy/MM/dd"
-                        selected={startDate}
-                        onChange={date => setStartDate(date)}
-                        />
-                        
-                    </Form.Field>
-                    <Form.Field >
+                        <DatePicker 
+                            id="datepicker"
+                             value={startDate}
+                            onChange={date => setStartDate(date)} 
+                            name="startDate"
+                            dateFormat="yyyy/mm/dd"
+                            /><br/>
+                    
                         <label className="input-container">Gender</label>
                             <input 
                                 type="radio" 
                                 name="gender" 
-                                value="m" 
-                                checked={gender === 'm'}  
-                                onChange={handleGenderChange} /> M
+                                value="male" 
+                                checked={gender === 'male'}  
+                                onChange={handleGenderChange} /> Male
                             <input 
                                 type="radio" 
                                 name="gender" 
-                                value="f"
-                                checked={gender === 'f'}  
-                                onChange={handleGenderChange} /> F
+                                value="female"
+                                checked={gender === 'female'}  
+                                onChange={handleGenderChange} /> Female
                             <input 
                                 type="radio" 
                                 name="gender" 
-                                value="o" 
-                                checked={gender === 'o'}  
-                                onChange={handleGenderChange} /> O
-                    </Form.Field>
-                        
-                    <Form.Field>
-                        <label className="setcounter">No. of CiggratePak</label>
+                                value="other" 
+                                checked={gender === 'other'}  
+                                onChange={handleGenderChange} /> Other
+                    <br/>
+                        <label className="setcounter">Cigarette Packet</label>
                         <h4>{counter}</h4>
-                        <div className="button-container">
+                        
                             <ButtonS 
-                                label="+" 
-                                bgColor="green"
+                                label="Increase" 
+                                bgColor="black"
                                 textColor="white"
                                 onClick={increment}
                             />
                             <ButtonS 
-                                label="reset" 
-                                bgColor="yellow" 
-                                textColor="black" 
+                                label="Reset" 
+                                bgColor="grey" 
+                                textColor="white" 
                                 onClick={reset}
                             />
                             <ButtonS 
-                                label="-" 
-                                bgColor="red" 
+                                label="Decrease" 
+                                bgColor="black" 
                                 textColor="white"
                                 onClick={decrement}
                             />
-                        </div>
+                        
                         {counter < 0 && <h5>You went below 0! Consider resetting</h5>}
                         
+                        <div className="rewardinput">
+                        <label htmlFor="number" className="rewardlabel">Reward Point</label>
+                        <input 
+                            type="number" 
+                            className="rewardInput"
+                            value={ Math.trunc(counter/10)}
+                            />
+                        {counter>=10 && <h5>Congratulations!!You have earned reward point</h5>}
+                        <button className="redeemButton" onClick={handleRewardChange}>Redeem point</button>    
+                                                            
+                        </div>
 
-                    </Form.Field>
+                        <br/>
+                        <input type="submit" name = "" value="Update"/> 
                     
-                    <Button  >Submit</Button>  
                     
-                    
-                </Form>
+                </form>
+                </div>
             </main>  
 
        </div>

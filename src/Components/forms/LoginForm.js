@@ -58,7 +58,8 @@ function LoginForm(props){
 
     
     <div className="loginpage"> 
-    <img src={backgroundImg} />   
+    <img src={backgroundImg} /> 
+    
     <div className="loginBox">
         <img src={userLogo} className="user"/>
         
@@ -113,6 +114,7 @@ function LoginForm(props){
             
             
             <Link to="/signup" style={{justifyContent:"center"}} className="FormField__Link">Create an account</Link>
+            <Link to="/" style={{justifyContent:"space-between"}} className="FormField__Link2">Home</Link>
             
 
         </form>

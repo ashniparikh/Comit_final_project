@@ -32,6 +32,7 @@ class SignUpForm extends Component {
         this.setState({ errors });
         
     };  
+    
 
     
 
@@ -118,10 +119,11 @@ class SignUpForm extends Component {
               
 
               
-                  <input type="submit" name = "Sign Up" value="Sign Up"/>
+                  <input type="submit" name = "Sign Up" value="Sign Up" />
                    
                   <Link to="/login" className="FormField__Link1" style={{justifyContent:"center"}}>I'm already member</Link>
-              
+                  <Link to="/" style={{justifyContent:"center"}} className="FormField__Link3">Home</Link>
+
             </form>
           </div>
           </div>

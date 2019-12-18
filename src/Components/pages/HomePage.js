@@ -11,7 +11,7 @@ function HomePage() {
           <Link to="/" id="homelink"><h1>Home</h1></Link>
           
           </div>
-          <div class="nav-right">
+          <div class="nav-right-home">
             <Link to="/login"><h2>Login</h2></Link>
             <Link to="/signup"><h2>SignUp</h2></Link>
             

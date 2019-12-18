@@ -1,9 +1,15 @@
 import React from 'react';
 import Nav from './../../Nav';
+import Sidebar from './../../Sidebar';
 import ButtonS from './../../ButtonS';
-import { Form, Button } from 'semantic-ui-react';
+import DatePicker from 'react-datepicker';
 import {Link} from 'react-router-dom'; 
+import {useHistory} from 'react-router-dom';
 import axios from 'axios';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import moment from 'moment';
+
 
 
 
@@ -16,6 +22,8 @@ function New_CustPage() {
     let [gender, setGender] = React.useState('');
     let [counter, setCounter] = React.useState(0);
 
+
+    let history=useHistory();
 
     function handleFullnameChange(event){
         setFullname(event.target.value);
@@ -50,7 +58,7 @@ function New_CustPage() {
       function onSubmit(event) {
         event.preventDefault();
 
-        console.log(`Form submitted:`);
+        console.log(`form submitted:`);
         console.log(`Fullname:${fullname}`);
         console.log(`Email:${email}`);
         console.log(`Contact Number:${contact}`);
@@ -69,12 +77,14 @@ function New_CustPage() {
         }
 
         axios.post('http://localhost:4000/backend_db/add', newCust)
-            .then(res => console.log(res.result));
+            .then(res => console.log(res.result,res.status));
+
+            history.push('/dashboardpage');
      
             {setFullname='';
             setEmail='';
             setContact='';
-            setStartDate='';
+            setStartDate=new Date();
             setGender='';
             setCounter=0
         };
@@ -88,13 +98,14 @@ function New_CustPage() {
         <div>
             <header>
                 <Nav/>
+                <Sidebar/>
             </header>
             <main>
-                <div>
-                    <h1>Add Member</h1>
-                </div>
-                <Form onSubmit={onSubmit}>
-                    <Form.Field >
+                <div className="newCustbox">
+                    <h3>Add Member</h3>
+                
+                <form onSubmit={onSubmit}>
+                    
                         <label className="labelfirstname" htmlFor="name">Fullname</label>
                         <input 
                         type="text" 
@@ -107,9 +118,7 @@ function New_CustPage() {
                         
                         />
                         
-                    </Form.Field>
-                    
-                    <Form.Field >
+                   
                         <label htmlFor="email">Email</label>
                         <input 
                             type="email" 
@@ -122,87 +131,79 @@ function New_CustPage() {
                             
                         />
                         
-                    </Form.Field>
-                    <Form.Field >
+                   
                         <label htmlFor="contact">Contact</label>
                         <input 
                             type="tel" 
                             id="contact" 
                             name="contact" 
-                            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                             placeholder="Enter Contact number" 
                             value={contact}
                             onChange={handleContact}
                             
                         />
-                        
-                    </Form.Field>
-                    <Form.Field >
+                    
                         <label htmlFor="date">Date of Birth</label>
-                        <input 
-                        type="date" 
-                        name="date"
-                        dateFormat="yyyy/MM/dd"
-                        selected={startDate}
-                        onChange={date => setStartDate(date)}
-                        />
-                        
-                    </Form.Field>
-                    <Form.Field >
+                        <DatePicker 
+                            id="datepicker"
+                            placeholder="yyyy/mm/dd"
+                            selected={startDate} 
+                            onChange={date => setStartDate(date)} 
+                            name="startDate"
+                            dateFormat="yyyy/mm/dd"
+                            />
+
+                    <br/>
                         <label className="input-container">Gender</label>
                             <input 
                                 type="radio" 
                                 name="gender" 
-                                value="m" 
-                                checked={gender === 'm'}  
-                                onChange={handleGenderChange} /> M
+                                value="male" 
+                                checked={gender === 'male'}  
+                                onChange={handleGenderChange} /> Male
                             <input 
                                 type="radio" 
                                 name="gender" 
-                                value="f"
-                                checked={gender === 'f'}  
-                                onChange={handleGenderChange} /> F
+                                value="female"
+                                checked={gender === 'female'}  
+                                onChange={handleGenderChange} /> Female
                             <input 
                                 type="radio" 
                                 name="gender" 
-                                value="o" 
-                                checked={gender === 'o'}  
-                                onChange={handleGenderChange} /> O
-                    </Form.Field>
-                        
-                   <Form.Field>
-                        <label className="setcounter">No. of CiggratePak</label>
+                                value="other" 
+                                checked={gender === 'other'}  
+                                onChange={handleGenderChange} /> Other<br/>
+                    
+                        <label className="setcounter">Cigarette Packets</label>
                         <h4>{counter}</h4>
-                        <div className="button-container">
+                        
                             <ButtonS 
                                 label="+" 
-                                bgColor="green"
+                                bgColor="black"
                                 textColor="white"
                                 onClick={increment}
                             />
                             <ButtonS 
-                                label="reset" 
-                                bgColor="yellow" 
-                                textColor="black" 
+                                label="0" 
+                                bgColor="grey" 
+                                textColor="white" 
                                 onClick={reset}
                             />
                             <ButtonS 
                                 label="-" 
-                                bgColor="red" 
+                                bgColor="black" 
                                 textColor="white"
                                 onClick={decrement}
                             />
-                        </div>
-                        {counter < 0 && <h5>You went below 0! Consider resetting</h5>}
-                        
-
-                    </Form.Field>
-                    
-                    <Button >Submit</Button>  
+                            {counter < 0 && <h5>You went below 0! Consider resetting</h5>}
+                    <br/><br/>
+                        <input type="submit" name = "" value="Submit"/>  
                     
                     
-                </Form>
-            </main>
+                </form>
+            </div>
+        </main>
         </div>
     );
 }

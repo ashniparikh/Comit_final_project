@@ -18,8 +18,8 @@ function App() {
   let User_Details=
   [{
     "empid": 7,
-    "username": "ash",
-    "fullname": "Ash Patel",
+    "username": "Ashni",
+    "fullname": "Ashni Patel",
     "emailid": "ash@gmail.com",
     "contact": "416-228-4020",
     "dob": "09/02/1990",
@@ -31,38 +31,7 @@ function App() {
 
   ];
 
-  let Cust_Names= 
-[{
-    "id": 1,
-    "name": "Tom shoi",
-    "contact": "234-876-4567"
-},
-{
-    "id": 2,
-    "name": "Jigar Patel",
-    "contact": "234-876-4567"
-},
-{
-    "id": 3,
-    "name": "Tammy Atval",
-    "contact": "294-782-8614"
-},
-{
-    "id": 4,
-    "name": "Gabby Rio",
-    "contact": "604-987-3658"
-},
-{
-    "id": 5,
-    "name": "Mandy Kahler",
-    "contact": "390-726-7438"
-},
-{
-    "id": 6,
-    "name": "Ziya Shah",
-    "contact": "416-577-3748"
-},
-];
+  
   let [username ,setUsername] = React.useState('');
   
   return (
@@ -79,7 +48,7 @@ function App() {
         username={username} 
         search={search} 
         setSearch={setSearch} 
-        Cust_Names={Cust_Names}
+        
         />
       </Route>
       <Route path="/newCust" exact component={New_CustPage} />
